@@ -1,46 +1,67 @@
 ---
 const portfolios = [
   {
+    id: 1,
     title: "Kyodai Hotel",
     result: "60K+ Views",
     url: "https://www.tiktok.com/@rheckova/photo/7641527516523531541",
-    videoId: "7641527516523531541",
   },
   {
+    id: 2,
     title: "Pequena Casa Hotel",
     result: "77K+ Views",
     url: "https://www.tiktok.com/@rheckova/video/7639373394156555540",
-    videoId: "7639373394156555540",
   },
   {
+    id: 3,
     title: "Dayang Resort",
     result: "67K+ Views",
     url: "https://www.tiktok.com/@rheckova/photo/7642216514774519060",
-    videoId: "7642216514774519060",
   },
   {
+    id: 4,
     title: "Grand Mahkota Hotel",
     result: "72K+ Views",
     url: "https://www.tiktok.com/@renny_sari18/video/7640542827629350164",
-    videoId: "7640542827629350164",
   },
   {
-    title: "Grand Mahkota Hotel",
+    id: 5,
+    title: "Prestige Villa",
     result: "138K+ Views",
     url: "https://www.tiktok.com/@renny_sari18/photo/7646307238214208788",
-    videoId: "7646307238214208788",
   },
   {
+    id: 6,
     title: "Maestro Hotel",
     result: "129K+ Views",
     url: "https://www.tiktok.com/@renny_sari18/video/7646701567365778709",
-    videoId: "7646701567365778709",
   },
 ];
+
+async function getTikTokThumbnail(url: string) {
+  try {
+    const res = await fetch(
+      `https://www.tiktok.com/oembed?url=${encodeURIComponent(url)}`
+    );
+
+    if (!res.ok) return null;
+
+    const data = await res.json();
+    return data.thumbnail_url || null;
+  } catch {
+    return null;
+  }
+}
+
+const portfoliosWithThumbnail = await Promise.all(
+  portfolios.map(async (item) => ({
+    ...item,
+    thumbnail: await getTikTokThumbnail(item.url),
+  }))
+);
 ---
 
-<!--  Featured Projects Section -->
-<section id="portfolio" class="featured-projects py-5 py-lg-11 py-xl-12 bg-light-gray" id="portfolio">
+<section id="portfolio" class="featured-projects py-5 py-lg-11 py-xl-12 bg-light-gray">
   <div class="d-flex flex-column gap-5 gap-xl-11">
 
     <div class="container">
@@ -71,7 +92,6 @@ const portfolios = [
                 data-aos-duration="1000"
               >
                 <h2 class="mb-0">Video Hospitality yang Pernah Dikerjakan</h2>
-
                 <p class="fs-5 mb-0">
                   Beberapa konten video untuk hotel, villa, guest house, dan resort
                   yang dibuat untuk membantu properti tampil lebih menarik di platform digital.
@@ -85,32 +105,60 @@ const portfolios = [
     </div>
 
     <div class="featured-projects-slider px-3">
-      <div class="owl-carousel owl-theme">
+      <div class="owl-carousel owl-theme portfolio-carousel">
 
-        {portfolios.map((item) => (
-          <div class="item">
-            <div class="portfolio d-flex flex-column gap-6">
+        {portfoliosWithThumbnail.map((item) => (
+          <div class="item" data-portfolio-id={item.id}>
+            <a
+              href={item.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-decoration-none text-dark"
+            >
+              <div class="portfolio d-flex flex-column gap-6">
 
-              <div class="portfolio-img tiktok-card position-relative overflow-hidden">
-                <blockquote
-                  class="tiktok-embed"
-                  cite={item.url}
-                  data-video-id={item.videoId}
-                  style="max-width: 325px; min-width: 280px;"
-                >
-                  <section></section>
-                </blockquote>
-              </div>
+                <div class="portfolio-img portfolio-thumb position-relative overflow-hidden">
+                  {item.thumbnail ? (
+  <img
+    src={item.thumbnail}
+    alt={item.title}
+    loading="lazy"
+  />
+) : (
+  <div class="portfolio-thumb-fallback">
+    <div class="fallback-content">
+      <iconify-icon icon="logos:tiktok-icon"></iconify-icon>
 
-              <div class="portfolio-details d-flex flex-column gap-3">
-                <h3 class="mb-0">{item.title}</h3>
+      <span class="fallback-label">
+        Preview Tidak Tersedia
+      </span>
 
-                <div class="hstack gap-2 flex-wrap">
-                  <span class="badge text-dark border">{item.result}</span>
+      <h4 class="fallback-title">
+        {item.title}
+      </h4>
+
+      <p class="fallback-description">
+        Klik untuk melihat video lengkap di TikTok.
+      </p>
+    </div>
+  </div>
+)}
+
+                  <div class="portfolio-play">
+                    <iconify-icon icon="solar:play-bold"></iconify-icon>
+                  </div>
                 </div>
-              </div>
 
-            </div>
+                <div class="portfolio-details d-flex flex-column gap-3">
+                  <h3 class="mb-0">{item.title}</h3>
+
+                  <div class="hstack gap-2 flex-wrap">
+                    <span class="badge text-dark border">{item.result}</span>
+                  </div>
+                </div>
+
+              </div>
+            </a>
           </div>
         ))}
 
@@ -119,4 +167,3 @@ const portfolios = [
 
   </div>
 </section>
-
