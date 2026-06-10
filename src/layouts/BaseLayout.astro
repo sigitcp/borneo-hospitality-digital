@@ -1,0 +1,45 @@
+---
+import Header from '../components/global/Header.astro';
+import Footer from '../components/global/Footer.astro';
+import ScrollToTop from '../components/global/ScrollToTop.astro';
+
+const {
+  title = 'Hotel Marketing Agency',
+  description = 'Jasa digital marketing hotel untuk meningkatkan direct booking melalui website, SEO, Google Ads, dan strategi digital.'
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>{title}</title>
+    <meta name="description" content={description}>
+
+    <link rel="shortcut icon" type="image/png" href="/assets/images/logos/favicon.svg">
+    <link rel="stylesheet" href="/assets/libs/owl.carousel/dist/assets/owl.carousel.min.css">
+    <link rel="stylesheet" href="/assets/libs/aos-master/dist/aos.css">
+    <link rel="stylesheet" href="/assets/css/styles.css">
+  </head>
+
+  <body>
+    <Header />
+
+    <main>
+      <slot />
+    </main>
+
+    <Footer />
+    <ScrollToTop />
+
+    <script is:inline  src="/assets/libs/jquery/dist/jquery.min.js"></script>
+    <script is:inline  src="/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script is:inline  src="/assets/libs/owl.carousel/dist/owl.carousel.min.js"></script>
+    <script is:inline  src="/assets/libs/aos-master/dist/aos.js"></script>
+    <script is:inline  src="/assets/js/custom.js"></script>
+    <script is:inline async src="https://www.tiktok.com/embed.js"></script>
+    <script is:inline  src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
+  </body>
+</html>

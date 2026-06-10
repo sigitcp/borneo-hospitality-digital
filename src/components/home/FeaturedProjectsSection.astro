@@ -1,0 +1,122 @@
+---
+const portfolios = [
+  {
+    title: "Kyodai Hotel",
+    result: "60K+ Views",
+    url: "https://www.tiktok.com/@rheckova/photo/7641527516523531541",
+    videoId: "7641527516523531541",
+  },
+  {
+    title: "Pequena Casa Hotel",
+    result: "77K+ Views",
+    url: "https://www.tiktok.com/@rheckova/video/7639373394156555540",
+    videoId: "7639373394156555540",
+  },
+  {
+    title: "Dayang Resort",
+    result: "67K+ Views",
+    url: "https://www.tiktok.com/@rheckova/photo/7642216514774519060",
+    videoId: "7642216514774519060",
+  },
+  {
+    title: "Grand Mahkota Hotel",
+    result: "72K+ Views",
+    url: "https://www.tiktok.com/@renny_sari18/video/7640542827629350164",
+    videoId: "7640542827629350164",
+  },
+  {
+    title: "Grand Mahkota Hotel",
+    result: "138K+ Views",
+    url: "https://www.tiktok.com/@renny_sari18/photo/7646307238214208788",
+    videoId: "7646307238214208788",
+  },
+  {
+    title: "Maestro Hotel",
+    result: "129K+ Views",
+    url: "https://www.tiktok.com/@renny_sari18/video/7646701567365778709",
+    videoId: "7646701567365778709",
+  },
+];
+---
+
+<!--  Featured Projects Section -->
+<section id="portfolio" class="featured-projects py-5 py-lg-11 py-xl-12 bg-light-gray" id="portfolio">
+  <div class="d-flex flex-column gap-5 gap-xl-11">
+
+    <div class="container">
+      <div class="row gap-7 gap-xl-0">
+
+        <div class="col-xl-4 col-xxl-4">
+          <div
+            class="d-flex align-items-center gap-7 py-2"
+            data-aos="fade-right"
+            data-aos-delay="100"
+            data-aos-duration="1000"
+          >
+            <span class="round-36 flex-shrink-0 text-dark rounded-circle bg-primary hstack justify-content-center fw-medium">
+              02
+            </span>
+            <hr class="border-line" />
+            <span class="badge text-bg-dark">Portfolio</span>
+          </div>
+        </div>
+
+        <div class="col-xl-8 col-xxl-7">
+          <div class="row">
+            <div class="col-xxl-8">
+              <div
+                class="d-flex flex-column gap-6"
+                data-aos="fade-up"
+                data-aos-delay="100"
+                data-aos-duration="1000"
+              >
+                <h2 class="mb-0">Video Hospitality yang Pernah Dikerjakan</h2>
+
+                <p class="fs-5 mb-0">
+                  Beberapa konten video untuk hotel, villa, guest house, dan resort
+                  yang dibuat untuk membantu properti tampil lebih menarik di platform digital.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="featured-projects-slider px-3">
+      <div class="owl-carousel owl-theme">
+
+        {portfolios.map((item) => (
+          <div class="item">
+            <div class="portfolio d-flex flex-column gap-6">
+
+              <div class="portfolio-img tiktok-card position-relative overflow-hidden">
+                <blockquote
+                  class="tiktok-embed"
+                  cite={item.url}
+                  data-video-id={item.videoId}
+                  style="max-width: 325px; min-width: 280px;"
+                >
+                  <section></section>
+                </blockquote>
+              </div>
+
+              <div class="portfolio-details d-flex flex-column gap-3">
+                <h3 class="mb-0">{item.title}</h3>
+
+                <div class="hstack gap-2 flex-wrap">
+                  <span class="badge text-dark border">{item.result}</span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        ))}
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
